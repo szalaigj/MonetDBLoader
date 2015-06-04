@@ -13,11 +13,6 @@
 
 class BulkFileWriter {
 public:
-	BulkFileWriter() :
-			outputBinaryWriter() {
-		// This default constructor is needed by operator[] of map template class
-	}
-
 	BulkFileWriter(std::string outputFilename) :
 			outputBinaryWriter(
 					new std::ofstream(outputFilename.c_str(),

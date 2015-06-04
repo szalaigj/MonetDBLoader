@@ -19,7 +19,7 @@ typedef std::vector<std::string> Strings;
 class Mapper {
 public:
 	Mapper() :
-			columnsToWriters(new std::map<std::string, BulkFileWriter>()) {
+			columnsToWriters(new std::map<std::string, BulkFileWriter *>()) {
 	}
 
 	// virtual destructor is needed if subclass of this base class will be destroyed
@@ -34,12 +34,12 @@ public:
 	virtual std::string getPreferredSourceFileExt() = 0;
 	virtual void map(std::string obj) = 0;
 
-	std::map<std::string, BulkFileWriter> * getColumnsToWriters();
+	std::map<std::string, BulkFileWriter *> * getColumnsToWriters();
 	void setColumnsToWriters(
-			std::map<std::string, BulkFileWriter> * inputColumnsToWriters);
+			std::map<std::string, BulkFileWriter *> * inputColumnsToWriters);
 	std::string getFilename(std::string bulkDirectory, std::string columnName);
 protected:
-	std::map<std::string, BulkFileWriter> * columnsToWriters;
+	std::map<std::string, BulkFileWriter *> * columnsToWriters;
 
 };
 

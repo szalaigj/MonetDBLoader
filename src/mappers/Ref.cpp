@@ -62,13 +62,13 @@ public:
 			// [refID] [int] NOT NULL PRIMARY KEY
 			int tmp = atoi(
 					(*firstTokenParts)[(*firstTokenParts).size() - 1].c_str());
-			(*columnsToWriters)["refID"].writeInt(tmp);
+			((*columnsToWriters)["refID"])->writeInt(tmp);
 
 			// [pos] [bigint] NOT NULL
-			(*columnsToWriters)["pos"].writeBigInt(firstPosOfLine);
+			((*columnsToWriters)["pos"])->writeBigInt(firstPosOfLine);
 
 			// [refNuc] [char] NULL
-			(*columnsToWriters)["refNuc"].writeTinyInt((unsigned char) nuc);
+			((*columnsToWriters)["refNuc"])->writeTinyInt((unsigned char) nuc);
 
 			firstPosOfLine++;
 		}

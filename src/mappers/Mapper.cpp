@@ -15,11 +15,11 @@ std::string Mapper::getFilename(std::string bulkDirectory,
 	return filename;
 }
 
-std::map<std::string, BulkFileWriter> * Mapper::getColumnsToWriters() {
+std::map<std::string, BulkFileWriter *> * Mapper::getColumnsToWriters() {
 	return columnsToWriters;
 }
 
 void Mapper::setColumnsToWriters(
-		std::map<std::string, BulkFileWriter> * inputColumnsToWriters) {
+		std::map<std::string, BulkFileWriter *> * inputColumnsToWriters) {
 	columnsToWriters = inputColumnsToWriters;
 }
