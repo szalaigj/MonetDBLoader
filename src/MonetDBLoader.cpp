@@ -15,14 +15,19 @@
 #include "verbs/StartVerb.hpp"
 //#include "verbs/ExampleVerb.hpp"
 #include "mappers/Ref.cpp"
+#include "load/FileUtils.hpp"
 #include "services/BaseBulkInsertFileCreator.hpp"
 
 using namespace std;
 
 int main(int argc, char** argv) {
 	BasePropertiesAdapter propAdapter;
-	Ref ref;
-	BaseBulkInsertFileCreator bulkInsertFileCreator;
+	Ref * ref = new Ref();
+	FileUtils * fileUtils = new FileUtils();
+	std::vector<Mapper *> * mappings = new std::vector<Mapper *>();
+	mappings->push_back(ref);
+	DefaultBulkInsertFileCreator * bulkInsertFileCreator =
+			new DefaultBulkInsertFileCreator(fileUtils, mappings);
 
 	// The (first) argument contains the path and file name of configuration file
 	// where the properties are found. Lines of configuration file contain
@@ -35,8 +40,8 @@ int main(int argc, char** argv) {
 		 exampleVerb.printUsage();
 		 exampleVerb.run();*/
 
-		StartVerb startVerb(propAdapter, settingsfilename, &ref,
-				&bulkInsertFileCreator);
+		StartVerb startVerb(propAdapter, settingsfilename, ref,
+				bulkInsertFileCreator);
 		startVerb.printUsage();
 		startVerb.run();
 	} catch (runtime_error& re) {

@@ -1,3 +1,2 @@
-Mode=value1
-Source=/home/janos/*.fa
-BulkPath=value3
+Source=/home/janos/_data/source/*.fa
+BulkPath=/home/janos/_data/bulkdir

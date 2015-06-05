@@ -29,13 +29,12 @@ void StartVerb::run() {
 	std::string source = std::string((*props)["Source"]);
 	std::string dirName, pat, ext;
 	getPartsOfSource(source, dirName, pat, ext);
-	//std::string pat = std::string("*.txt");
 	pat = correctPattern(pat);
 	std::vector<std::string> * fileNames = new std::vector<std::string>();
 
 	getFiles(dirName, pat, fileNames);
 
-	if ((getMapper()->getPreferredSourceFileExt().compare(ext))!=0) {
+	if ((getMapper()->getPreferredSourceFileExt().compare(ext)) != 0) {
 		std::cout << "WARNING: the extension of the given Source does not "
 				<< "equal the preferred file extension of the given Mapper "
 				<< "type! Are you sure you want to use it?" << std::endl;
@@ -52,13 +51,13 @@ void StartVerb::run() {
 	}
 
 	for (size_t i = 0; i < fileNames->size(); i++) {
+		bulkInsertFileCreator->createFiles(dirName, (*fileNames)[i],
+				(*props)["BulkPath"]);
 		std::cout << (*fileNames)[i] << std::endl;
 	}
 
-	std::cout << (*props)["Mode"] << std::endl;
-	std::cout << (*props)["Source"] << std::endl;
-	std::cout << (*props)["BulkPath"] << std::endl;
-	std::cout << (*props)["Binary"] << std::endl;
+	/*	std::cout << (*props)["Source"] << std::endl;
+	 std::cout << (*props)["BulkPath"] << std::endl;*/
 }
 
 void StartVerb::getPartsOfSource(std::string source, std::string& dirName,

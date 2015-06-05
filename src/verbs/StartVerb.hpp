@@ -18,7 +18,6 @@ typedef std::vector<std::string> Strings;
 struct StartVerbInitializer {
 	static Strings * createRequiredProps() {
 		Strings * result = new Strings();
-		result->push_back("Mode");
 		result->push_back("Source");
 		result->push_back("BulkPath");
 		return result;
@@ -27,18 +26,14 @@ struct StartVerbInitializer {
 	static std::map<std::string, std::string> * createOptionalProps() {
 		std::map<std::string, std::string> * result = new std::map<std::string,
 				std::string>();
-		(*result)["Binary"] = "false";
 		return result;
 	}
 
 	static std::map<std::string, std::string> * createPropDescs() {
 		std::map<std::string, std::string> * result = new std::map<std::string,
 				std::string>();
-		(*result)["Mode"] =
-				"Mapper/Merger class names which are used for load/target tables.";
 		(*result)["Source"] = "Source file pattern.";
 		(*result)["BulkPath"] = "Bulk load files path";
-		(*result)["Binary"] = "User binary files for bulk insert.";
 		return result;
 	}
 
