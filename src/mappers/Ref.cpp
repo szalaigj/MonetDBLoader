@@ -5,6 +5,7 @@
  *      Author: Janos Szalai-Gindl
  */
 
+#include <iostream>
 #include <cstring>
 #include <cstdlib>
 #include <sstream>
@@ -39,6 +40,7 @@ public:
 	}
 
 	void map(std::string obj) {
+		/*		std::cout << obj << std::endl;*/
 		Strings * objParts = new Strings();
 		splitStrIntoParts(obj, objParts, '\t');
 
@@ -51,6 +53,11 @@ public:
 		long firstPosOfLine = atol((*objParts)[1].c_str());
 
 		std::string partsOfNucSeq = (*objParts)[2];
+
+		/*		std::cout << (*objParts)[0] << " " << (*objParts)[1] << " "
+		 << (*objParts)[2] << " " << std::endl;
+
+		 std::cout << (*firstTokenParts)[(*firstTokenParts).size() - 1] << std::endl;*/
 
 		int sizeOfPartsOfNucSeq = partsOfNucSeq.size();
 		char nucsOfLine[1024];

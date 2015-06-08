@@ -25,7 +25,6 @@ std::map<std::string, std::string> * StartVerbInitializer::propDescs =
 		StartVerbInitializer::createPropDescs();
 
 void StartVerb::run() {
-	std::cout << "Here!" << std::endl;
 	std::string source = std::string((*props)["Source"]);
 	std::string dirName, pat, ext;
 	getPartsOfSource(source, dirName, pat, ext);

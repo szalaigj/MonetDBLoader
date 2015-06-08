@@ -9,7 +9,7 @@
 
 std::string DefaultSelector::selectObjects(std::string status) {
 	std::string retVal = status;
-	if (prefix.compare("")==0) {
+	if (prefix.compare("")!=0) {
 		retVal = prefix + delimiter + status;
 	}
 	return retVal;
