@@ -7,18 +7,22 @@
 
 #include "BulkFileWriter.hpp"
 
-void BulkFileWriter::writeInt(int value){
-	(*outputBinaryWriter) << value;
+void BulkFileWriter::writeInt(int value) {
+	(*outputBinaryWriter).write((char *)&value, sizeof(int));
 }
 
-void BulkFileWriter::writeBigInt(long value){
-	(*outputBinaryWriter) << value;
+void BulkFileWriter::writeBigInt(long long value) {
+	(*outputBinaryWriter).write((char *)&value, sizeof(long long));
 }
 
-void BulkFileWriter::writeTinyInt(unsigned char value){
-	(*outputBinaryWriter) << value;
+void BulkFileWriter::writeTinyInt(unsigned char value) {
+	(*outputBinaryWriter).write((char *)&value, sizeof(unsigned char));
 }
 
-void BulkFileWriter::flush(){
+void BulkFileWriter::writeChar(char value) {
+	(*outputBinaryWriter) << value << lineDelimiterChar;
+}
+
+void BulkFileWriter::flush() {
 	outputBinaryWriter->flush();
 }

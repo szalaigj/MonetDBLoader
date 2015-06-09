@@ -56,7 +56,7 @@ StreamReaderForLoaderWithPrefix::StreamReaderForLoaderWithPrefix(
 	if (lastDotPos == std::string::npos) {
 		prefix = filename;
 	} else {
-		prefix = filename.substr(0, lastDotPos - 1);
+		prefix = filename.substr(0, lastDotPos);
 	}
 	selector->setPrefix(prefix);
 }

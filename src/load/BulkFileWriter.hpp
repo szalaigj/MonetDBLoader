@@ -17,6 +17,8 @@ public:
 			outputBinaryWriter(
 					new std::ofstream(outputFilename.c_str(),
 							std::ios_base::out | std::ios_base::binary)) {
+		// The default new line character is UNIX-style:
+		lineDelimiterChar = "\n";
 	}
 
 	~BulkFileWriter() {
@@ -26,11 +28,13 @@ public:
 	}
 
 	void writeInt(int value);
-	void writeBigInt(long value);
+	void writeBigInt(long long value);
 	void writeTinyInt(unsigned char value);
+	void writeChar(char value);
 	void flush();
 private:
 	std::ofstream * outputBinaryWriter;
+	std::string lineDelimiterChar;
 };
 
 #endif /* BULKFILEWRITER_HPP_ */

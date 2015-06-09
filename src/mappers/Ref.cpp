@@ -50,7 +50,7 @@ public:
 		// And the original file name is irrelevant.
 		splitStrIntoParts((*objParts)[0], firstTokenParts, '_');
 
-		long firstPosOfLine = atol((*objParts)[1].c_str());
+		long long firstPosOfLine = std::atoll((*objParts)[1].c_str());
 
 		std::string partsOfNucSeq = (*objParts)[2];
 
@@ -63,19 +63,19 @@ public:
 		char nucsOfLine[1024];
 		std::strcpy(nucsOfLine, partsOfNucSeq.c_str());
 
+		int currentRefID = atoi(
+				(*firstTokenParts)[(*firstTokenParts).size() - 1].c_str());
 		for (int index = 0; index < sizeOfPartsOfNucSeq; index++) {
 			char nuc = nucsOfLine[index];
 
 			// [refID] [int] NOT NULL PRIMARY KEY
-			int tmp = atoi(
-					(*firstTokenParts)[(*firstTokenParts).size() - 1].c_str());
-			((*columnsToWriters)["refID"])->writeInt(tmp);
+			((*columnsToWriters)["refID"])->writeInt(currentRefID);
 
-			// [pos] [bigint] NOT NULL
+			// [pos] [bigint] NOT NULL PRIMARY KEY
 			((*columnsToWriters)["pos"])->writeBigInt(firstPosOfLine);
 
 			// [refNuc] [char] NULL
-			((*columnsToWriters)["refNuc"])->writeTinyInt((unsigned char) nuc);
+			((*columnsToWriters)["refNuc"])->writeChar(nuc);
 
 			firstPosOfLine++;
 		}
