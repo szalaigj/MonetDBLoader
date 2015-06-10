@@ -1,0 +1,1 @@
+copy binary into ${tableName} from (${refID_Dat},${pos_Dat},${refNuc_Dat})

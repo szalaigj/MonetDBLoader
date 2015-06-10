@@ -1,2 +1,3 @@
 Source=/home/janos/_data/source/*.fa
 BulkPath=/home/janos/_data/bulkdir
+LogPath=/home/janos/_data/log/

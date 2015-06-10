@@ -37,16 +37,16 @@ public:
 
 class BaseVerb: public IVerb {
 public:
-	BaseVerb(BasePropertiesAdapter propAdapter, std::string settingsfilename,
+	BaseVerb(BasePropertiesAdapter propAdapter, std::string settingsfile,
 			Mapper * currentMapper, const std::string name,
 			const std::string description, Strings * requiredProps,
 			std::map<std::string, std::string> * optionalProps,
 			std::map<std::string, std::string> * propDescs) :
-			props(), settingsfilename(settingsfilename), currentMapper(
-					currentMapper), name(name), description(description), requiredProps(
+			props(), settingsfile(settingsfile), currentMapper(currentMapper), name(
+					name), description(description), requiredProps(
 					requiredProps), optionalProps(optionalProps), propDescs(
 					propDescs) {
-		props = propAdapter.readSettings(settingsfilename);
+		props = propAdapter.readSettings(settingsfile);
 		check();
 		setOptionalProps();
 	}
@@ -74,7 +74,7 @@ private:
 	// set optional properties with default values
 	void setOptionalProps();
 
-	std::string settingsfilename;
+	std::string settingsfile;
 	Mapper * currentMapper;
 	const std::string name;
 	const std::string description;

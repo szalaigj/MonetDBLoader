@@ -12,6 +12,7 @@
 
 #include "Verb.hpp"
 #include "../services/BaseBulkInsertFileCreator.hpp"
+#include "../sql/SqlUtils.hpp"
 
 typedef std::vector<std::string> Strings;
 
@@ -26,6 +27,7 @@ struct StartVerbInitializer {
 	static std::map<std::string, std::string> * createOptionalProps() {
 		std::map<std::string, std::string> * result = new std::map<std::string,
 				std::string>();
+		(*result)["LogPath"] = "~/";
 		return result;
 	}
 
@@ -34,6 +36,7 @@ struct StartVerbInitializer {
 				std::string>();
 		(*result)["Source"] = "Source file pattern.";
 		(*result)["BulkPath"] = "Bulk load files path";
+		(*result)["LogPath"] = "Log file path";
 		return result;
 	}
 
@@ -47,19 +50,21 @@ public:
 	StartVerb(BasePropertiesAdapter propAdapter, std::string settingsfilename,
 			Mapper * currentMapper,
 			BaseBulkInsertFileCreator * bulkInsertFileCreator,
-			const std::string name = "Start", const std::string description =
-					"Starts processing of a batch", Strings * requiredProps =
-					StartVerbInitializer::requiredProps,
+			SqlUtils * sqlUtils, const std::string name = "Start",
+			const std::string description = "Starts processing of a batch",
+			Strings * requiredProps = StartVerbInitializer::requiredProps,
 			std::map<std::string, std::string> * optionalProps =
 					StartVerbInitializer::optionalProps,
 			std::map<std::string, std::string> * propDescs =
 					StartVerbInitializer::propDescs) :
 			BaseVerb(propAdapter, settingsfilename, currentMapper, name,
 					description, requiredProps, optionalProps, propDescs), bulkInsertFileCreator(
-					bulkInsertFileCreator) {
+					bulkInsertFileCreator), sqlUtils(sqlUtils) {
 	}
 
 	~StartVerb() {
+		delete bulkInsertFileCreator;
+		delete sqlUtils;
 	}
 
 	void run();
@@ -71,6 +76,7 @@ private:
 			std::vector<std::string> * fileNames);
 
 	BaseBulkInsertFileCreator * bulkInsertFileCreator;
+	SqlUtils * sqlUtils;
 };
 
 #endif /* STARTVERB_HPP_ */

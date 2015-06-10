@@ -11,6 +11,7 @@
 #include <exception>
 #include <stdexcept>
 #include <regex.h>
+#include <stdio.h>
 
 #include "StartVerb.hpp"
 #include "../mappers/Mapper.hpp"
@@ -52,11 +53,9 @@ void StartVerb::run() {
 	for (size_t i = 0; i < fileNames->size(); i++) {
 		bulkInsertFileCreator->createFiles(dirName, (*fileNames)[i],
 				(*props)["BulkPath"]);
-		std::cout << (*fileNames)[i] << std::endl;
+		sqlUtils->executeRefLoadCommand((*props)["LogPath"],
+				(*props)["BulkPath"], (*fileNames)[i], getMapper());
 	}
-
-	/*	std::cout << (*props)["Source"] << std::endl;
-	 std::cout << (*props)["BulkPath"] << std::endl;*/
 }
 
 void StartVerb::getPartsOfSource(std::string source, std::string& dirName,

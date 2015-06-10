@@ -12,11 +12,12 @@
 #include <map>
 
 #include "verbs/PropertiesAdapter.hpp"
-#include "verbs/StartVerb.hpp"
 //#include "verbs/ExampleVerb.hpp"
-#include "mappers/Ref.cpp"
+#include "mappers/Ref.hpp"
 #include "load/FileUtils.hpp"
 #include "services/BaseBulkInsertFileCreator.hpp"
+#include "sql/SqlUtils.hpp"
+#include "verbs/StartVerb.hpp"
 
 using namespace std;
 
@@ -29,19 +30,26 @@ int main(int argc, char** argv) {
 	DefaultBulkInsertFileCreator * bulkInsertFileCreator =
 			new DefaultBulkInsertFileCreator(fileUtils, mappings);
 
-	// The (first) argument contains the path and file name of configuration file
-	// where the properties are found. Lines of configuration file contain
-	// property name and value separated by '='
-	std::string settingsfilename(argv[1]);
+	// The first argument contains the resource path where the settings file
+	// are found.
+	std::string resourcePath(argv[1]);
 
+	// The second argument contains the settings file name. Lines of this file
+	// contain property name and value separated by '='.
+	std::string settingsfilename(argv[2]);
+
+	// The following is the full file access for settings file.
+	std::string settingsfile(resourcePath + "/" + settingsfilename);
+
+	SqlUtils * sqlUtils = new SqlUtils(resourcePath);
 	try {
 		// The following only an example verb:
-		/* ExampleVerb exampleVerb(propAdapter, settingsfilename);
+		/* ExampleVerb exampleVerb(propAdapter, settingsfile);
 		 exampleVerb.printUsage();
 		 exampleVerb.run();*/
 
-		StartVerb startVerb(propAdapter, settingsfilename, ref,
-				bulkInsertFileCreator);
+		StartVerb startVerb(propAdapter, settingsfile, ref,
+				bulkInsertFileCreator, sqlUtils);
 		startVerb.printUsage();
 		startVerb.run();
 	} catch (runtime_error& re) {

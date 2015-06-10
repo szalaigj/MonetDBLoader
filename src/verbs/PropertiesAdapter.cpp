@@ -14,23 +14,23 @@
 #include <fstream>
 
 std::map<std::string, std::string> * BasePropertiesAdapter::readSettings(
-		std::string settingsfilename) {
+		std::string settingsfile) {
 	std::map<std::string, std::string> * props = new std::map<std::string,
 			std::string>();
 	std::string baseDelimiter = "=";
-	std::ifstream settingsFile(settingsfilename.c_str());
+	std::ifstream settingsFileStream(settingsfile.c_str());
 	std::string line;
-	if (settingsFile.good()) {
-		while (std::getline(settingsFile, line)) {
+	if (settingsFileStream.good()) {
+		while (std::getline(settingsFileStream, line)) {
 			int basePos = line.find(baseDelimiter);
 			std::string propKey = line.substr(0, basePos);
 			std::string propValue = line.substr(basePos + 1);
 			(*props)[propKey] = propValue;
 		}
-		settingsFile.close();
+		settingsFileStream.close();
 	} else {
 		std::string errmsg("File ");
-		errmsg.append(settingsfilename);
+		errmsg.append(settingsfile);
 		errmsg.append(" does not exist.\n");
 		throw std::runtime_error(errmsg);
 	}
